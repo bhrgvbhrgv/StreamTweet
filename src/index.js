@@ -15,7 +15,7 @@ connectDB()
 })
 .catch((error) => {
     console.error("mongo db connection failed:", error);});
-    
+
 
 import express from "express";
 const app = express();
@@ -25,7 +25,7 @@ const app = express();
     
     try{
         
-        await mongoose.connect(`${process.env.URL}/${DB_NAME}`)
+        await mongoose.connect(`${process.env.MONGODB_URL}/${DB_NAME}`)
         app.on('error', (err) => {
             console.error("Error connecting to MongoDB:", err);
             throw err; // Re-throw the error to handle it in the calling code
@@ -44,3 +44,20 @@ const app = express();
     
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get("/", (req, res) => {
+  res.send("hello");
+});
