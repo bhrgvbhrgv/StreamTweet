@@ -59,5 +59,5 @@ const app = express();
 
 
 app.get("/", (req, res) => {
-  res.send("hello");
-});
+  res.send("testing server is running");
+}); // testing route to check if server is running
