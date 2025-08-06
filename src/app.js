@@ -2,8 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import  cors from 'cors';
 import cookieParser from 'cookie-parser';
+import userRoutes from './routes/user.routes.js';
 
 const app = express();
+console.log("App initialized");
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
@@ -23,6 +25,12 @@ app.use(express.urlencoded({
 app.use(express.static('public')); // Serve static files from the 'public' directory like favcon.ico, images, etc. public usage
 
 app.use(cookieParser()); // Parse cookies from the request headers
+
+
+
+
+//routes declaration
+app.use("/api/v1/users",userRoutes)
 
 
 
