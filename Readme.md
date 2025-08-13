@@ -61,7 +61,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/streamtweet.git
+   git clone https://github.com/bhrgvbhrgv/streamtweet.git
    cd streamtweet
 
 

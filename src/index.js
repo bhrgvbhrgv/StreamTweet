@@ -10,7 +10,7 @@ dotenv.config({
 import mongoose from "mongoose";
 import { DB_NAME } from "./constants.js";
 
-console.log("here")
+
 
 connectDB()
 .then(()=>{
