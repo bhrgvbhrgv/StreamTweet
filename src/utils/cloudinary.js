@@ -11,18 +11,62 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET ,
 });
     
+// const uploadOnCloudinary = async (localFilePath) => {
+//     try{
+//         if (!localFilePath){ return null
+//             const response = await cloudinary.uploader.upload(localFilePath,{resource_type: "auto"})
+//         }
+//         //file upload to cloudinary
+//         console.log("Uploading file to Cloudinary:", response.url);
+//         return response;
+//     }catch(error){
+//         fs.unlinkSync(localFilePath) ; // Delete the local file if upload fails
+//         console.error("Error uploading to Cloudinary:", error);
+//         return null; // Return null if upload fails
+//     }
+// }
+
+// const uploadOnCloudinary = async (localFilePath) => {
+//     try {
+//         if (!localFilePath) {
+//             return null;
+//         }
+//         // file upload to cloudinary
+//         const response = await cloudinary.uploader.upload(localFilePath, { resource_type: "auto" });
+//         console.log("Uploading file to Cloudinary:", response.url);
+//         return response;
+//     } catch (error) {
+//         // Only try to delete the file if it exists
+//         if (fs.existsSync(localFilePath)) {
+//             fs.unlinkSync(localFilePath);
+//         }
+//         console.error("Error uploading to Cloudinary:", error);
+//         return null;
+//     }
+// }
+
 const uploadOnCloudinary = async (localFilePath) => {
-    try{
-        if (!localFilePath){ return null
-            const response = await cloudinary.uploader.upload(localFilePath,{resource_type: "auto"})
+    try {
+        if (!localFilePath) {
+            return null;
         }
-        //file upload to cloudinary
+        // file upload to cloudinary
+        const response = await cloudinary.uploader.upload(localFilePath, { resource_type: "auto" });
         console.log("Uploading file to Cloudinary:", response.url);
+
+        // Delete the local file after successful upload
+        if (fs.existsSync(localFilePath)) {
+            fs.unlinkSync(localFilePath);
+        }
+
         return response;
-    }catch(error){
-        fs.unlinkSync(localFilePath) ; // Delete the local file if upload fails
+    } catch (error) {
+        // Only try to delete the file if it exists
+        if (fs.existsSync(localFilePath)) {
+            fs.unlinkSync(localFilePath);
+        }
         console.error("Error uploading to Cloudinary:", error);
-        return null; // Return null if upload fails
+        return null;
     }
 }
 

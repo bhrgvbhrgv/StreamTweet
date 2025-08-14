@@ -1,6 +1,8 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
+//console.log("Multer middleware loaded");
+
+const storage =  multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/temp")
   },
@@ -9,5 +11,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname) // Use the original file name
    }
 })
+
+//console.log("Multer storage configured");
 
 export const upload = multer({ storage, })

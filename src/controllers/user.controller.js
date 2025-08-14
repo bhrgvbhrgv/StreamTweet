@@ -4,14 +4,32 @@ import {User} from "../models/user.model.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponce.js";
 
-console.log("here user controller");
+
 const registerUser = asyncHandler(async (req, res) => {
 
 //get user details from front end
 
 const {fullName,email,username,password } =req.body
-console.log(email," - email");
-console.log(password," - password")
+console.log("email - ",email);
+console.log("password - ",password);
+console.log("fullName - ",fullName);
+console.log("username - ",username);
+console.log("password - ",password);
+
+//checking if user details are provided, cmnt this
+
+console.log("req.files - ",req.files);
+// console.log("req.body - ",req.body);
+// console.log("req - ",req);
+// console.log("req.files.avatar - ",req.files?.avatar);
+// console.log("req.files.coverImage - ",req.files?.coverImage);
+// console.log("req.files.avatar[0] - ",req.files?.avatar[0]);
+// console.log("req.files.coverImage[0] - ",req.files?.coverImage[0]);
+// console.log("req.files.avatar[0].path - ",req.files?.avatar[0]?.path);
+// console.log("req.files.coverImage[0].path - ",req.files?.coverImage[0]?.path);
+// console.log("req.files.avatar[0].filename - ",req.files?.avatar[0]?.filename);
+// console.log("req.files.coverImage[0].filename - ",req.files?.coverImage[0]?.filename);
+
 
 //vailidation not empty
 
@@ -23,9 +41,11 @@ if (!email.includes("@")) {
     throw new ApiError(400, "Email must contain '@'");
 }
 
+
+
 //check if user already exists
 
-const existedUser = User.findOne({
+const existedUser = await User.findOne({
     $or: [{email},{username}]
 })
 if(existedUser){
@@ -62,7 +82,7 @@ const user = await User.create({
     coverImage: coverImage?.url||"",
     email,
     password,
-    username:username.toLoverCase(),
+    username:username.toLowerCase(),
 })
 
 //remove password and refresh tocken field from responce
@@ -88,3 +108,6 @@ return res.status(201).json(
 
 
 export { registerUser };
+
+//chaicodebackend p1 09:53:00-09:55:00
+
